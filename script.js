@@ -5,11 +5,15 @@ function navigateTo(panel) {
     document.body.style.opacity = '0.7';
     
     setTimeout(() => {
-        // In a deployed environment, use proper routing:
-        // window.location.href = '/' + panel + '-panel.html';
-        
-        alert("System Navigation: Accessing " + panel.toUpperCase() + " Panel...");
-        document.body.style.opacity = '1';
+        if (panel === 'admin') {
+            window.location.href = 'admin-login.html';
+        } else {
+            // In a deployed environment, use proper routing:
+            // window.location.href = '/' + panel + '-panel.html';
+            
+            alert("System Navigation: Accessing " + panel.toUpperCase() + " Panel...");
+            document.body.style.opacity = '1';
+        }
     }, 300);
 }
 

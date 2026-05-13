@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | RESTURANT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        .sidebar-link.active {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+            border-right: 4px solid #4f46e5;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-slate-800">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex">
+        <div class="h-16 flex items-center px-6 border-b border-slate-200">
+            <div class="text-xl font-black tracking-tighter text-indigo-600">
+                REST<span class="text-slate-800">URANT</span>
+            </div>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li>
+                    <a href="#" class="sidebar-link active flex items-center px-6 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-chart-pie w-6"></i> Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-6 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-chair w-6"></i> Table Layout
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-6 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-utensils w-6"></i> Menu & Categories
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-6 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-users-gear w-6"></i> Staff & Permissions
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-6 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-receipt w-6"></i> Order History
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="p-4 border-t border-slate-200">
+            <button onclick="logout()" class="flex items-center w-full px-4 py-2 text-sm font-bold text-rose-600 bg-rose-50 rounded-lg hover:bg-rose-100 transition">
+                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> System Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Top Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
+            <h1 class="text-lg font-bold text-slate-800">Dashboard Overview</h1>
+            
+            <div class="flex items-center gap-4">
+                <div class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+                    <i class="fa-regular fa-clock mr-1"></i> <span id="clock">00:00:00</span>
+                </div>
+                <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold border border-indigo-200">
+                    AD
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-6 text-white shadow-lg mb-8 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold mb-1">Welcome to Central Operations</h2>
+                    <p class="text-indigo-100 text-sm">Your restaurant setup is complete. Monitor live activity below.</p>
+                </div>
+                <div class="hidden sm:block">
+                    <i class="fa-solid fa-chart-line text-5xl opacity-20"></i>
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Revenue Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">+12.5%</span>
+                    </div>
+                    <h3 class="text-slate-500 text-sm font-semibold mb-1">Daily Revenue</h3>
+                    <p class="text-2xl font-black text-slate-800">$0.00</p>
+                </div>
+
+                <!-- Orders Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 text-sm font-semibold mb-1">Tracked Orders</h3>
+                    <p class="text-2xl font-black text-slate-800">0</p>
+                </div>
+
+                <!-- Tables Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-chair"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 text-sm font-semibold mb-1">Active Tables</h3>
+                    <p class="text-2xl font-black text-slate-800" id="dashTableCount">0 / 0</p>
+                </div>
+
+                <!-- Menu Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 text-sm font-semibold mb-1">Menu Items</h3>
+                    <p class="text-2xl font-black text-slate-800" id="dashMenuCount">0</p>
+                </div>
+            </div>
+            
+            <!-- Quick Info Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-4">Live Table Monitor</h3>
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 h-64 flex items-center justify-center text-slate-400 text-sm">
+                        Table layout map will render here
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-4">Recent Orders</h3>
+                    <div class="text-center text-slate-500 py-12">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                        <p class="text-sm">No orders processed yet today.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Clock
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString();
+        }, 1000);
+
+        // Load data from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const isSetup = localStorage.getItem('restaurant_setup_complete');
+            if (isSetup !== 'true') {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            // Populate dashboard with setup data
+            const tables = JSON.parse(localStorage.getItem('restaurant_tables') || '[]');
+            const menu = JSON.parse(localStorage.getItem('restaurant_menu') || '[]');
+            
+            document.getElementById('dashTableCount').textContent = `0 / ${tables.length}`;
+            document.getElementById('dashMenuCount').textContent = menu.length;
+        });
+
+        // Logout
+        function logout() {
+            // In a real app, clear auth tokens. We just redirect to login page
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>
