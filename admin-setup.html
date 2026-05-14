@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        body { font-family: 'Inter', sans-serif; }
-        
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .bg-setup {
             background-color: #f8fafc;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
@@ -21,13 +24,21 @@
             display: none;
             animation: fadeIn 0.4s ease-in-out;
         }
+
         .step-content.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* 2D Floor Plan Styles */
@@ -55,19 +66,38 @@
             user-select: none;
             transition: box-shadow 0.2s;
         }
-        
+
         .table-element:active {
             cursor: grabbing;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             z-index: 50;
         }
 
-        .table-square { width: 80px; height: 80px; border-radius: 8px; }
-        .table-circle { width: 80px; height: 80px; border-radius: 50%; }
+        .table-square {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+        }
 
-        .table-label { font-weight: bold; font-size: 0.875rem; color: #1e293b; pointer-events: none; }
-        .table-cap { font-size: 0.7rem; color: #64748b; pointer-events: none; }
-        
+        .table-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .table-label {
+            font-weight: bold;
+            font-size: 0.875rem;
+            color: #1e293b;
+            pointer-events: none;
+        }
+
+        .table-cap {
+            font-size: 0.7rem;
+            color: #64748b;
+            pointer-events: none;
+        }
+
         .delete-table-btn {
             position: absolute;
             top: -8px;
@@ -85,18 +115,22 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
-        .table-element:hover .delete-table-btn { opacity: 1; }
 
+        .table-element:hover .delete-table-btn {
+            opacity: 1;
+        }
     </style>
 </head>
+
 <body class="bg-setup min-h-screen text-slate-800 pb-12">
 
     <!-- Header -->
     <header class="bg-white border-b border-slate-200 px-8 py-4 sticky top-0 z-40 shadow-sm">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tighter text-indigo-600">
+            <div class="text-2xl font-black tracking-tighter text-orange-600">
                 REST<span class="text-slate-800">URANT</span>
-                <span class="text-sm font-medium text-slate-500 ml-2 tracking-normal border-l-2 pl-2">System Setup</span>
+                <span class="text-sm font-medium text-slate-500 ml-2 tracking-normal border-l-2 pl-2">System
+                    Setup</span>
             </div>
             <div class="text-sm font-semibold text-slate-500" id="step-indicator">
                 Step 1 of 3
@@ -105,7 +139,7 @@
     </header>
 
     <main class="max-w-5xl mx-auto mt-10 px-4">
-        
+
         <!-- Welcome Title -->
         <div class="text-center mb-10">
             <h1 class="text-4xl font-extrabold text-slate-900 mb-3">Let's set up your restaurant</h1>
@@ -114,55 +148,66 @@
 
         <!-- Wizard Container -->
         <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-            
+
             <!-- Progress Bar -->
             <div class="flex border-b border-slate-100">
-                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 transition-colors" id="tab-1">
+                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 transition-colors"
+                    id="tab-1">
                     <i class="fa-solid fa-chair mr-2"></i> 1. Table Layout
                 </div>
-                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-transparent text-slate-400 transition-colors" id="tab-2">
+                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-transparent text-slate-400 transition-colors"
+                    id="tab-2">
                     <i class="fa-solid fa-tags mr-2"></i> 2. Categories
                 </div>
-                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-transparent text-slate-400 transition-colors" id="tab-3">
+                <div class="flex-1 text-center py-4 text-sm font-bold border-b-2 border-transparent text-slate-400 transition-colors"
+                    id="tab-3">
                     <i class="fa-solid fa-utensils mr-2"></i> 3. Menu Options
                 </div>
             </div>
 
             <div class="p-8">
-                
+
                 <!-- STEP 1: Table Layout -->
                 <div id="step-1" class="step-content active">
                     <h2 class="text-2xl font-bold mb-6 text-slate-800">Design Floor Plan</h2>
-                    
+
                     <div class="flex flex-col md:flex-row gap-6">
                         <!-- Sidebar -->
                         <div class="w-full md:w-64 bg-slate-50 p-5 rounded-xl border border-slate-200 h-fit">
                             <h3 class="font-bold text-slate-700 mb-4 text-sm uppercase tracking-wide">Add New Table</h3>
-                            
+
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Table Name/No.</label>
-                                    <input type="text" id="tableName" placeholder="e.g. T1" class="w-full p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Table
+                                        Name/No.</label>
+                                    <input type="text" id="tableName" placeholder="e.g. T1"
+                                        class="w-full p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Capacity (Pax)</label>
-                                    <input type="number" id="tableCap" value="4" min="1" class="w-full p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Capacity
+                                        (Pax)</label>
+                                    <input type="number" id="tableCap" value="4" min="1"
+                                        class="w-full p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                 </div>
-                                
+
                                 <div class="pt-2 flex gap-2">
-                                    <button onclick="addTable('square')" class="flex-1 bg-white border border-slate-300 py-2 rounded-lg text-slate-700 hover:bg-slate-100 hover:border-indigo-400 transition-all font-medium text-sm flex flex-col items-center justify-center gap-1">
+                                    <button onclick="addTable('square')"
+                                        class="flex-1 bg-white border border-slate-300 py-2 rounded-lg text-slate-700 hover:bg-slate-100 hover:border-indigo-400 transition-all font-medium text-sm flex flex-col items-center justify-center gap-1">
                                         <div class="w-6 h-6 border-2 border-slate-400 rounded-sm"></div>
                                         Square
                                     </button>
-                                    <button onclick="addTable('circle')" class="flex-1 bg-white border border-slate-300 py-2 rounded-lg text-slate-700 hover:bg-slate-100 hover:border-indigo-400 transition-all font-medium text-sm flex flex-col items-center justify-center gap-1">
+                                    <button onclick="addTable('circle')"
+                                        class="flex-1 bg-white border border-slate-300 py-2 rounded-lg text-slate-700 hover:bg-slate-100 hover:border-indigo-400 transition-all font-medium text-sm flex flex-col items-center justify-center gap-1">
                                         <div class="w-6 h-6 border-2 border-slate-400 rounded-full"></div>
                                         Round
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div class="mt-8 pt-6 border-t border-slate-200">
-                                <p class="text-xs text-slate-500"><i class="fa-solid fa-circle-info text-indigo-500 mr-1"></i> Drag and drop tables on the canvas to arrange your floor layout.</p>
+                                <p class="text-xs text-slate-500"><i
+                                        class="fa-solid fa-circle-info text-indigo-500 mr-1"></i> Drag and drop tables
+                                    on the canvas to arrange your floor layout.</p>
                             </div>
                         </div>
 
@@ -178,21 +223,26 @@
                 <!-- STEP 2: Categories -->
                 <div id="step-2" class="step-content">
                     <h2 class="text-2xl font-bold mb-2 text-slate-800">Menu Categories</h2>
-                    <p class="text-slate-500 mb-6">Create categories to organize your menu (e.g., Starters, Main Course, Beverages).</p>
-                    
+                    <p class="text-slate-500 mb-6">Create categories to organize your menu (e.g., Starters, Main Course,
+                        Beverages).</p>
+
                     <div class="max-w-xl">
                         <form id="categoryForm" class="flex gap-3 mb-8">
-                            <input type="text" id="catInput" placeholder="Category Name" required class="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-sm">
-                            <button type="submit" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-sm">
+                            <input type="text" id="catInput" placeholder="Category Name" required
+                                class="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-sm">
+                            <button type="submit"
+                                class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-sm">
                                 <i class="fa-solid fa-plus mr-2"></i>Add
                             </button>
                         </form>
 
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 min-h-[200px]">
-                            <h3 class="font-bold text-slate-700 mb-4 text-sm uppercase tracking-wide">Active Categories</h3>
+                            <h3 class="font-bold text-slate-700 mb-4 text-sm uppercase tracking-wide">Active Categories
+                            </h3>
                             <div id="categoriesList" class="flex flex-wrap gap-2">
                                 <!-- Categories injected here -->
-                                <p class="text-slate-400 text-sm italic w-full text-center py-4" id="emptyCatMsg">No categories added yet.</p>
+                                <p class="text-slate-400 text-sm italic w-full text-center py-4" id="emptyCatMsg">No
+                                    categories added yet.</p>
                             </div>
                         </div>
                     </div>
@@ -202,30 +252,35 @@
                 <div id="step-3" class="step-content">
                     <h2 class="text-2xl font-bold mb-2 text-slate-800">Add Menu Options</h2>
                     <p class="text-slate-500 mb-6">Add dishes to your menu and assign them to categories.</p>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <!-- Form -->
                         <div class="md:col-span-1 bg-slate-50 p-6 rounded-xl border border-slate-200 h-fit">
                             <form id="menuForm" class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-semibold text-slate-700 mb-1">Dish Name</label>
-                                    <input type="text" id="dishName" required class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <input type="text" id="dishName" required
+                                        class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-semibold text-slate-700 mb-1">Price (₹)</label>
-                                    <input type="number" id="dishPrice" step="0.01" required class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <input type="number" id="dishPrice" step="0.01" required
+                                        class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-semibold text-slate-700 mb-1">Category</label>
-                                    <select id="dishCategory" required class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                                    <select id="dishCategory" required
+                                        class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
                                         <option value="">Select a category...</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-semibold text-slate-700 mb-1">Description</label>
-                                    <textarea id="dishDesc" rows="3" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none"></textarea>
+                                    <textarea id="dishDesc" rows="3"
+                                        class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none"></textarea>
                                 </div>
-                                <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-sm mt-2">
+                                <button type="submit"
+                                    class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-sm mt-2">
                                     <i class="fa-solid fa-plus mr-2"></i>Add to Menu
                                 </button>
                             </form>
@@ -234,11 +289,13 @@
                         <!-- Menu List -->
                         <div class="md:col-span-2">
                             <div class="flex justify-between items-end mb-4">
-                                <h3 class="font-bold text-slate-700 text-sm uppercase tracking-wide">Menu Items (<span id="menuCount">0</span>)</h3>
+                                <h3 class="font-bold text-slate-700 text-sm uppercase tracking-wide">Menu Items (<span
+                                        id="menuCount">0</span>)</h3>
                             </div>
                             <div id="menuList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <!-- Menu items injected here -->
-                                <div class="col-span-full py-10 text-center border-2 border-dashed border-slate-200 rounded-xl" id="emptyMenuMsg">
+                                <div class="col-span-full py-10 text-center border-2 border-dashed border-slate-200 rounded-xl"
+                                    id="emptyMenuMsg">
                                     <i class="fa-solid fa-utensils text-4xl text-slate-300 mb-3"></i>
                                     <p class="text-slate-500 text-sm">Your menu is empty. Add your first dish!</p>
                                 </div>
@@ -251,18 +308,21 @@
 
             <!-- Footer Controls -->
             <div class="bg-slate-50 border-t border-slate-200 p-6 flex justify-between items-center">
-                <button id="btnPrev" class="px-6 py-2.5 text-slate-600 font-bold hover:text-slate-900 hidden transition">
+                <button id="btnPrev"
+                    class="px-6 py-2.5 text-slate-600 font-bold hover:text-slate-900 hidden transition">
                     <i class="fa-solid fa-arrow-left mr-2"></i>Back
                 </button>
                 <div class="flex-1"></div>
-                <button id="btnNext" class="px-8 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-900 transition shadow-lg">
+                <button id="btnNext"
+                    class="px-8 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-900 transition shadow-lg">
                     Continue <i class="fa-solid fa-arrow-right ml-2"></i>
                 </button>
-                <button id="btnFinish" class="px-8 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition shadow-lg hidden">
+                <button id="btnFinish"
+                    class="px-8 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition shadow-lg hidden">
                     Finish & Launch <i class="fa-solid fa-rocket ml-2"></i>
                 </button>
             </div>
-            
+
         </div>
     </main>
 
@@ -306,7 +366,7 @@
             });
 
             btnPrev.classList.toggle('hidden', currentStep === 1);
-            
+
             if (currentStep === 3) {
                 btnNext.classList.add('hidden');
                 btnFinish.classList.remove('hidden');
@@ -315,7 +375,7 @@
                 btnNext.classList.remove('hidden');
                 btnFinish.classList.add('hidden');
             }
-            
+
             stepIndicator.textContent = `Step ${currentStep} of 3`;
         }
 
@@ -325,14 +385,14 @@
         btnPrev.addEventListener('click', () => {
             if (currentStep > 1) { currentStep--; updateWizard(); }
         });
-        
+
         btnFinish.addEventListener('click', () => {
             // Save to localStorage
             localStorage.setItem('restaurant_setup_complete', 'true');
             localStorage.setItem('restaurant_tables', JSON.stringify(state.tables));
             localStorage.setItem('restaurant_categories', JSON.stringify(state.categories));
             localStorage.setItem('restaurant_menu', JSON.stringify(state.menu));
-            
+
             // Redirect to dashboard
             btnFinish.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Launching...';
             setTimeout(() => {
@@ -354,18 +414,18 @@
         function addTable(shape) {
             const nameInput = document.getElementById('tableName');
             const capInput = document.getElementById('tableCap');
-            
+
             const name = nameInput.value || `T${state.tables.length + 1}`;
             const cap = capInput.value || 4;
             const id = 'table_' + Date.now();
-            
+
             // Default center pos
             const x = (floorPlan.offsetWidth / 2) - 40;
             const y = (floorPlan.offsetHeight / 2) - 40;
 
             const tableData = { id, name, capacity: cap, shape, x, y };
             state.tables.push(tableData);
-            
+
             renderTable(tableData);
             nameInput.value = ''; // reset
         }
@@ -375,15 +435,15 @@
             el.className = `table-element ${t.shape === 'square' ? 'table-square' : 'table-circle'}`;
             el.id = t.id;
             el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0)`;
-            
+
             el.innerHTML = `
                 <span class="table-label">${t.name}</span>
                 <span class="table-cap">${t.capacity} pax</span>
                 <div class="delete-table-btn" onclick="deleteTable('${t.id}')"><i class="fa-solid fa-xmark"></i></div>
             `;
-            
+
             floorPlan.appendChild(el);
-            
+
             // Event Listeners for dragging
             el.addEventListener("mousedown", dragStart, false);
         }
@@ -401,10 +461,10 @@
             if (e.target.classList.contains('delete-table-btn') || e.target.closest('.delete-table-btn')) return;
             dragItem = e.currentTarget;
             const tData = state.tables.find(t => t.id === dragItem.id);
-            
+
             xOffset = tData.x;
             yOffset = tData.y;
-            
+
             initialX = e.clientX - xOffset;
             initialY = e.clientY - yOffset;
             active = true;
@@ -415,7 +475,7 @@
                 e.preventDefault();
                 currentX = e.clientX - initialX;
                 currentY = e.clientY - initialY;
-                
+
                 // Bounds checking
                 currentX = Math.max(0, Math.min(currentX, floorPlan.offsetWidth - dragItem.offsetWidth));
                 currentY = Math.max(0, Math.min(currentY, floorPlan.offsetHeight - dragItem.offsetHeight));
@@ -429,7 +489,7 @@
             initialX = currentX;
             initialY = currentY;
             active = false;
-            
+
             // Update state
             if (dragItem) {
                 const tData = state.tables.find(t => t.id === dragItem.id);
@@ -468,7 +528,7 @@
                 emptyCatMsg.style.display = 'block';
                 return;
             }
-            
+
             emptyCatMsg.style.display = 'none';
             state.categories.forEach(cat => {
                 const badge = document.createElement('div');
@@ -511,7 +571,7 @@
                 category: dropdown.value,
                 desc: document.getElementById('dishDesc').value
             };
-            
+
             state.menu.push(dish);
             renderMenu();
             menuForm.reset();
@@ -520,13 +580,13 @@
         function renderMenu() {
             mList.innerHTML = '';
             mCount.textContent = state.menu.length;
-            
+
             if (state.menu.length === 0) {
                 mList.appendChild(emptyMenuMsg);
                 emptyMenuMsg.style.display = 'block';
                 return;
             }
-            
+
             emptyMenuMsg.style.display = 'none';
             state.menu.forEach(dish => {
                 const card = document.createElement('div');
@@ -553,4 +613,5 @@
 
     </script>
 </body>
+
 </html>
