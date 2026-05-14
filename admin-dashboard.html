@@ -198,9 +198,17 @@
 
         // Load data from localStorage
         document.addEventListener('DOMContentLoaded', () => {
+            // Check login session
+            const loginExpiry = localStorage.getItem('admin_login_expiry');
+            if (!loginExpiry || Date.now() > parseInt(loginExpiry)) {
+                // Session expired or not logged in
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
             const isSetup = localStorage.getItem('restaurant_setup_complete');
             if (isSetup !== 'true') {
-                window.location.href = 'admin-login.html';
+                window.location.href = 'admin-setup.html'; // Changed to admin-setup.html because they are logged in but not setup
                 return;
             }
 
@@ -214,7 +222,8 @@
 
         // Logout
         function logout() {
-            // In a real app, clear auth tokens. We just redirect to login page
+            // Clear auth tokens
+            localStorage.removeItem('admin_login_expiry');
             window.location.href = 'admin-login.html';
         }
     </script>

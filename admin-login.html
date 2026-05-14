@@ -98,6 +98,19 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginExpiry = localStorage.getItem('admin_login_expiry');
+            if (loginExpiry && Date.now() < parseInt(loginExpiry)) {
+                // Already logged in, redirect
+                const isSetup = localStorage.getItem('restaurant_setup_complete');
+                if (isSetup === 'true') {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'admin-setup.html';
+                }
+            }
+        });
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -111,6 +124,9 @@
             
             if (user === 'admin' && pass === 'welcome@admin#1') {
                 // Success
+                // Set expiry to 88 hours from now
+                localStorage.setItem('admin_login_expiry', Date.now() + 88 * 60 * 60 * 1000);
+                
                 msgArea.textContent = 'Credentials accepted. Redirecting...';
                 msgArea.classList.remove('hidden', 'scale-95', 'opacity-0');
                 msgArea.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200', 'scale-100', 'opacity-100');

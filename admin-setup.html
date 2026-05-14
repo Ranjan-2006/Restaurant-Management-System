@@ -327,6 +327,14 @@
     </main>
 
     <script>
+        // Session Check
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginExpiry = localStorage.getItem('admin_login_expiry');
+            if (!loginExpiry || Date.now() > parseInt(loginExpiry)) {
+                window.location.href = 'admin-login.html';
+            }
+        });
+
         // Data State
         let state = {
             tables: [],
