@@ -3,6 +3,15 @@
             const loginExpiry = localStorage.getItem('admin_login_expiry');
             if (!loginExpiry || Date.now() > parseInt(loginExpiry)) {
                 window.location.href = 'admin-login.html';
+                return;
+            }
+
+            // Show 'Back to Dashboard' if setup is already complete
+            if (localStorage.getItem('restaurant_setup_complete') === 'true') {
+                const backBtn = document.getElementById('backToDashboardBtn');
+                if (backBtn) {
+                    backBtn.classList.remove('hidden');
+                }
             }
         });
 
